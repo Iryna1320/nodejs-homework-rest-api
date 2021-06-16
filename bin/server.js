@@ -1,5 +1,6 @@
 const app = require("../app");
 const db = require("../model/db");
+
 const PORT = process.env.PORT || 3000;
 
 db.then(() => {
