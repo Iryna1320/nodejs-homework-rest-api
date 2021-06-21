@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const gr = require("gravatar");
 const { Gender } = require("../helpers/constants");
 const bcrypt = require("bcryptjs");
 const SALT_WORK_FACTOR = 8;
@@ -11,7 +12,6 @@ const userSchema = new Schema(
       enum: [Gender.FEMALE, Gender.MALE, Gender.NONE],
       default: Gender.NONE,
     },
-
     password: {
       type: String,
       required: true,
@@ -28,6 +28,12 @@ const userSchema = new Schema(
     token: {
       type: String,
       default: null,
+    },
+    avatar: {
+      type: String,
+      default: function () {
+        return gr.url(this.email, { s: "250" }, true);
+      },
     },
   },
   {
