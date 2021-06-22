@@ -35,6 +35,10 @@ const userSchema = new Schema(
         return gr.url(this.email, { s: "250" }, true);
       },
     },
+    idCloudAvatar: {
+      type: String,
+      default: null,
+    },
   },
   {
     versionKey: false,
