@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const mongoosePaginate = require("mongoose-paginate-v2");
+// const mongoose = require("mongoose");
 const { Schema, model, SchemaTypes } = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const contactSchema = new Schema(
   {
@@ -26,8 +26,20 @@ const contactSchema = new Schema(
   {
     versionKey: false,
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
+    toJSON: {
+      virtuals: true,
+      transform: function (doc, ret) {
+        delete ret._id;
+        return ret;
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform: function (doc, ret) {
+        delete ret._id;
+        return ret;
+      },
+    },
   }
 );
 
@@ -39,6 +51,7 @@ contactSchema.path("name").validate((value) => {
   const re = /[A-Z]\w+/g;
   return re.test(String(value));
 });
+
 contactSchema.plugin(mongoosePaginate);
 
 const Contact = model("contact", contactSchema);

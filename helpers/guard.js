@@ -9,10 +9,11 @@ const guard = (req, res, next) => {
     if (headerAuth) {
       token = headerAuth.split(" ")[1];
     }
-    if (err || !user || token !== user.token) {
-      return res.status(HttpCode.UNAUTHORIZATED).json({
+
+    if (err || !user || token !== user?.token) {
+      return res.status(HttpCode.UNAUTHORIZED).json({
         status: "error",
-        code: HttpCode.UNAUTHORIZATED,
+        code: HttpCode.UNAUTHORIZED,
         message: "Invalid credentials",
       });
     }
