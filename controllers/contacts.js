@@ -25,7 +25,9 @@ const getById = async (req, res, next) => {
       console.log(contact);
       return res.json({ status: "success", code: 200, data: { contact } });
     }
-    return res.json({ status: "error", code: 404, message: "Not found" });
+    return res
+      .status(404)
+      .json({ status: "error", code: 404, message: "Not found" });
   } catch (e) {
     next(e);
   }
